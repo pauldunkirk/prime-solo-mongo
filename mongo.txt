@@ -40,6 +40,8 @@ orders.insert({productName: ["Cheetos", "Doritos", "Tostitos"]})
 orders.insert({productName: ["Kleenex", "Charmin", "Puffs"]})
 orders.insert({productName: ["carrots", "beans", "rice"]})
 
+orders.insert({lineItems: {unitPrice: 40, quantity: 200, productName: "Puffs"}})
+orders.insert({lineItems: {unitPrice: 50, quantity: 400, productName: "Kleenex"}})
 
 
 3)Find a single order document, any order document.
@@ -66,6 +68,6 @@ orders.remove({productName: ["carrots", "beans", "rice"]})
 orderDate -- see https://docs.mongodb.org/manual/reference/method/Date/
 orderTotal
 lineItems -- an array of line item objects with fields
-unitPrice
-quantity
-productName
+  unitPrice
+  quantity
+  productName
