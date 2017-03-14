@@ -42,6 +42,7 @@ orders.insert({productName: ["carrots", "beans", "rice"]})
 
 orders.insert({lineItems: {unitPrice: 40, quantity: 200, productName: "Puffs"}})
 orders.insert({lineItems: {unitPrice: 50, quantity: 400, productName: "Kleenex"}})
+orders.insert({lineItems: {unitPrice: 60, quantity: 200, productName: "Puffs"}})
 
 
 3)Find a single order document, any order document.
@@ -51,19 +52,26 @@ orders.findOne({})
 orders.find().pretty()
 
 5) Find all orders with an orderDate that is prior to 1/1/2016.
-orders.find({orderDate: {$lt: 2016-01-01}})
+orders.find({orderDate: {$lt: new Date('2016-01-01')}});
+
 
 6) Find all orders with an orderDate that is after 1/1/2016.
-orders.find({orderDate: {$gt: 2016-01-01}})
+orders.find({orderDate: {$gt: new Date('2016-01-01')}});
 
 7) Find orders with lineItems that have a quantity that is less than 50, but greater than 5. HINT: Look at $and and dot notation.
-orders.find({lineItems: {$lt: 50}, {$gt: 5}})
+orders.find({
+            $and: [
+                {'lineItems.quantity': {$lt: 5}},
+                {'lineItems.quantity': {$gt: 0}}
+            ]
+            });
 
 8) Update one of your line items to 42.99. HINT: Look at dot notation
-orders.update({lineItems: ''}, {$set : { : '' }})
+orders.updateOne({},
+            {$set: {'lineItems.0.unitPrice': 42.99}})
 
 9) Remove one of your orders.
-orders.remove({productName: ["carrots", "beans", "rice"]})
+orders.deleteOne({"_id" : ObjectId("58c845a27e38d44888dde3fe")});
 
 orderDate -- see https://docs.mongodb.org/manual/reference/method/Date/
 orderTotal
